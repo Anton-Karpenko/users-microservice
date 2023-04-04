@@ -1,0 +1,16 @@
+aerich==0.7.1
+aioboto3==10.1.0
+asgi-correlation-id==4.1.0
+asyncpg==0.27.0
+cryptography==39.0.1
+fastapi==0.92.0
+faust-streaming==0.9.4
+httpx==0.23.0
+nanoid==2.0.0
+prometheus-client==0.15.0
+protobuf==4.21.9
+pydantic[email]==1.10.2
+python-jose==3.3.0
+python-json-logger==2.0.4
+tortoise-orm==0.19.2
+uvicorn[standard]==0.19.0

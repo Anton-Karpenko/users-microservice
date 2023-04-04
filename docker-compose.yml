@@ -1,0 +1,51 @@
+version: '3.8'
+
+volumes:
+  cache:
+    driver: local
+  pg_data:
+    driver: local
+
+networks:
+  all-microservices:
+    name: all_microservices_network
+  local-network:
+    driver: bridge
+
+services:
+  db:
+    image: library/postgres:13
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - local-network
+
+  users_private_service:
+    build: .
+    environment:
+      DEBUG: "on"
+      ENVIRONMENT: development
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
+      TORTOISE_TEST_DB: postgres://postgres:password@db:5432/test_{}
+      KAFKA_APPLICATION_ID: users_private_service
+      KAFKA_BROKER_URL: kafka://kafka:9092
+      PRE_COMMIT_HOME: /cache/.pre-commit
+      PROJECT_NAME: Users Private Service
+      ACCOUNTS_BACKEND_URL: http://accounts_private_service:8000
+    volumes:
+      - .:/app:delegated
+      - cache:/cache:delegated
+    command: uvicorn apps.app:app --host 0.0.0.0 --reload
+    ports:
+      - "8031:8000"
+    depends_on:
+      - db
+    networks:
+      - all-microservices
+      - local-network

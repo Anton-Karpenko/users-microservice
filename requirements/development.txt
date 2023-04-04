@@ -1,0 +1,20 @@
+-r base.txt
+-r test.txt
+bandit==1.7.4
+black==22.10.0
+darglint==1.8.1
+dlint==0.13.0
+factory-boy==3.2.1
+flake8==5.0.4
+flake8-comprehensions==3.10.1
+flake8-eradicate==1.4.0
+flake8-spellcheck==0.28.0
+flake8-typing-imports==1.14.0
+isort==5.10.1
+mypy==0.990
+pep8-naming==0.13.2
+pre-commit==2.20.0
+safety==2.3.5
+towncrier==22.8.0
+types-freezegun==1.1.10
+types-pytz==2022.6.0.1
